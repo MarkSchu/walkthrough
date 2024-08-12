@@ -10,7 +10,7 @@ The what and the why.
 
 Where are we starting with? Zello makes a app for iPhone and Android that turns your phone into a walkie-talkie; it lets you send push-to-talk messages between phones. 
 
-![phone-display!](/assets/1-phone-display.png)
+<img src="/assets/1-phone-display.png" alt="drawing" width="200"/>
 
 For instance, if you push that big circle button and talk, I'll receive your message in real time on my device. 
 
