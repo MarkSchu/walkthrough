@@ -50,11 +50,11 @@ The language of "exchanging messagess" is fairly general. It's now time to get m
 
 From the perspective of the mobile user, messages are displayed with on a user interface that's similar to the messaging apps we're used to: 
 
-![phone-display!](/assets/2-phone-msgs.png)
+<img src="/assets/2-phone-msgs.png" alt="drawing" width="200"/>
 
 From the perspective of the dispatch app, messages are displayed similarly. This is a sub-component of the dispatch app that shows messages: 
 
-![phone-display!](/assets/3-dispatch-msgs.png)
+<img src="/assets/3-dispatch-msgs.png" alt="drawing" width="200"/>
 
 In either case, when you click the triangle play button, the audio message is replayed: 
 
@@ -85,7 +85,7 @@ The use case for a Call is when a field workd has a particular question or issue
 
 All of this is tracked on the following Dashboard:
 
-![phone-display!](/assets/4-dash.png)
+<img src="/assets/4-dash.png" alt="drawing" width="500"/>
 
 There are three main components to point out here. 
 
