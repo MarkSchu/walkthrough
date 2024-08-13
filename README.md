@@ -39,15 +39,15 @@ On the mobile app, messages are displayed like this:
 
 On the dispatch app, messages are displayedlike this: 
 
-<img src="/assets/3-dispatch-msgs.png" alt="drawing" width="200" style="border: 1px solid black"/>
+<img src="/assets/3-dispatch-msgs.png" alt="drawing" width="200"/>
 
 When you click the triangle button, the audio message is played.
 
 There are **3 ways** in which messages are exchanged in the dispatch app:
 
-  1. Exchanging messages with Contacts. 
-  2. Exchanging messages in Channels. 
-  3. Exchanging messages in Calls
+  1. Between Contacts. 
+  2. In Channels. 
+  3. In Calls
 
 **Contacts** are individual users, like drivers using the mobile app. 
 
@@ -58,7 +58,7 @@ There are **3 ways** in which messages are exchanged in the dispatch app:
 
 Non-Dispatch channels act as explained. Dispatch channels are unique. In addition to exchanging messages, non-dispatchers in the channel can also initiate **Calls**. 
 
-**Calls** are private conversations between a dispatcher and a user. When a call is created, it's added to a queue. A dispatcher can accept the call, have a private conversation with the user, and then end the call. In short, a call has the following lifecycle: created => pending => accepted => ended. 
+**Calls** are private conversations between a dispatcher and a user. When a call is created, it's added to a queue. A dispatcher can accept the call, have a private conversation with the user, and then end the call. In short, a call has the following lifecycle: created, pending, accepted, ended. 
 
 Calls are used by mobile users to raise particular issues or requests that they need resolved.
 
@@ -71,10 +71,12 @@ All of this is tracked on the following Dashboard:
 There are three main components to point out here. 
 
   1. The Tabs
-  2. Calls/Contacts/Channels List
-  3. The Converation History Panel where messages are shown
+  2. Calls List 
+  3. Contacts List
+  4. Channels List
+  3. Converation History Panel 
 
-When you click either Calls, Contacts, or Channels, you'll see a different display for each liss:
+Clicking on a particular tab reveals the list that corresponds to the tab's name:
 
 ![phone-display!](/assets/5-tab-selections.png)
 
@@ -86,16 +88,13 @@ There are also a number of additional features that help with messaging.
 
 ## Requirements 
 
-The main requirement: 
-add the ability to exchange text messages in a way that feels natural with respect to the existing messaging architecture. 
+The **main requirement**:add the ability to exchange text messages in a way that feels natural with respect to the existing messaging architecture. 
 
-For a bit more detail, we need: 
+To be a bit more specific, we need 
 
-  1. can recieve text messages
-  2. persists text messages
-  3. shows new text message notifications to dispatch user
-  4. shows unread text message notifications to dispatch user 
-  5. can send text messages to other clients 
+  1. show text messages where we already show audio messages
+  2. the ability to create a text messages where we can typically create audio messages.
+  3. notify that there are new and unread text messages similar to how we do for audio messages.
 
 ## Solution, Challenges and Design Decisions
 
