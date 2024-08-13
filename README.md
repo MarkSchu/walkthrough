@@ -39,7 +39,7 @@ On the mobile app, messages are displayed like this:
 
 On the dispatch app, messages are displayedlike this: 
 
-<img src="/assets/3-dispatch-msgs.png" alt="drawing" width="200" style="border: 1px solid #ccc"/>
+<img src="/assets/3-dispatch-msgs.png" alt="drawing" width="200" style="border: 1px solid black"/>
 
 When you click the triangle button, the audio message is played.
 
