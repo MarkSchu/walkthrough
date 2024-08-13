@@ -136,52 +136,55 @@ There are a few things worth pointing out in the interaction between these three
 
 ### The Main Challenge 
 
-The **Main Challenge**: Am I going to try to generalize or augment existing components or create new components to handle the new case, and risk code that isn't DRY. 
+The **Main Challenge**: There's already logic for messages. In introducing a new type of message, where do we need to add logic and where do we need to generalize or change existing logic?
 
-In other words, we already have message logic. How much do we have to change or add to start thinking in terms of types of messages? 
+On the one hand, you want parity between both kinds of message so that they fit into how the user is already thinking about messages. On the other, they're very different kinds of messages, and the design has to account for that. 
+
+Some similarities: 
+
+  1. You expect messages in the same place 
+  2. You expect to send messages from the same place 
+  3. You expect to be user to be notified in the same way
+
+Some differences unique to Audio Messages: 
+
+  1. Audio messages automatically play in channels
+  2. Audio messages are considered "read" when you hear then
+  3. Audio messages are created at the put of a button
 
 ### Instances of the Challenge
 
+added logic
 
-augment component
-create unique component
+1. The creation of an input for creating and sending text messages at the bottom of the conversation history panel. 
+
+2. The creation of a component in the history panel for displaying text messages in the conversation.
+
+3. The modification of the "Unread Nessage Dot" since a text message is "read" under different circumstances from an audio message.
+
+4. The modification of the "Unread Message Notification Circle" to include text messages in the count.
+
+5. The modification of the "Last Sent Arrow" in the Recents List to indicate that the dispatcher recently sent a text message.
+
+6. The creation of a menu with a "Send Text Message" that correspondeds to the microphone button found on the list of channels and contacts. Clicking the button would navigate you to the conversation, unlike the pressing the microphone.
+
+7. The modification of lazy loading messages in the history panel so that text messages from the database are pulled in.
+
+8. The creation of a `TextMessage` table in the database. 
+
+9. The creation of a `TextMessage` type in the client. Eventually, we have three types: `Message`, `AudioMessage`, and `TextMessage` where an instance could be passed around as, e.g., `TextMessage` or `Message` type.
+
+10. The modification and creation of reducers and properties in the store. In the end, some reducers used the general `Message` type and others used the specific `AudioMessage` or `ImageMessage` types. This was made on a case-by-case basis. 
+
+11. The modification of container components like the history component to receive a list of `Message`s instead of `AudioMessage`s. Also done on a case-by-base basis. 
+
+12. The creation of callbacks that receive the text message from the Message Transfer Servie. For audio messages, we expect streams; for text messages, we expect completed data. 
+
+13. The modification of style classes to make different components look the same. For example, the message components in the history panel. 
+
+### Monitoring, Metrics, and Insights
 
 
-1. Representing Messages. On the database level, audio messages and text messages were distinguished and stored as different tables. Retreiving all messages included retreiving from both tables. On the client, they were also given different types. However, the audio message and text message had an overlap type, Message, and could be referred to as such. So you could have a list of objects of the `Message` type but then refer to as `TextMessage` or `AudioMessage`. On the reception of the message, the service told us which was which. 
-
-2. Message Handler 
-For audio messages, you track the state of receiving when you receive it. For text message you don't
-
-#### UX
-
-There were a few main compeonts that needed to be created or augmented. 
-
-1. The creation of a text message bar at the bottom of the conversation history panel. 
-
-2. The creation of a text message component corresponding to the audio message component. It received and displayed the text message. 
-
-3. The conversation history panel needed to be augmented so that it allowed for a new kind of message display; namely, the component made above. 
-
-4. A way to send text messages that corresponded to the microphone icon found in the channel and contact options. When you click the microphone, you can send a message. We wanted a corresponding way to send text messages. So, we added menu button that displayed upon hovering over the bar and, when clicked, gave the option to send a Text Message. 
-
-5. Augmenting the New Message Notification Circle to include TextMessages into the count. Shows up on Contect option
-
-6. Show message as unread. On the audio message, there is a red dot that shows and goes away after the message has been palyed. When will we rmove that for Text Message
-
-7. Certain channels automically play a message when it comes in so there's no reason to have an unheard message notification. However, they haven't read it, so it still has to be conisdfeed unread for rtext messages
-
-8. show sent message for text message on recents
-
-9. number of unread messages in box
-unread message red dot on conversation history
-
-10. lazy loading in history panel
-
-11. style classes to share style but differetn components
-
-# monitoring
-  - what are the potential problems, bugs to watch out for?
-  - how are we going to measure how much the feature gets used? 
 
 the design
 approach
