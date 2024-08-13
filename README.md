@@ -88,12 +88,12 @@ There are also a number of additional features that help with messaging.
 
 ### Requirements 
 
-The **main requirement**:add the ability to exchange text messages in a way that feels natural with respect to the existing messaging architecture. 
+The **main requirement**: add the ability to exchange text messages in a way that feels natural with respect to the existing messaging architecture. 
 
-To be a bit more specific, we need 
+To be a bit more specific, we need to:
 
   1. show text messages where we already show audio messages
-  2. the ability to create a text messages where we can typically create audio messages.
+  2. add the ability to create a text messages where we can typically create audio messages.
   3. notify that there are new and unread text messages similar to how we do for audio messages.
 
 ## Solution, Challenges and Design Decisions
@@ -117,22 +117,20 @@ At the most general level, the architecture consists of:
   1. The Electron Client
   2. The Database Layer
   3. Message Transfer Service
+
+There are a few things worth pointing out in interaction between these three:
   
-The Message Transfer Service handles the entire process of sending and receiving messages. It's accessed via a library imported into the Electron Client that exposes methods for sending and receiving messages. 
+**The Message Transfer Service handles the entire process of sending and receiving messages**. It's accessed via a library imported into the Electron Client that exposes methods for sending and receiving messages. 
 
-When the client receives the messages, its automatically stores them in the database to save the history. The number of messages in the database is monitored, only allowing a specific number of saved messages. When new messages come in and the number is exceeded, the oldest set of messages is deleted. 
+**Messages are streamed in and begin to play immediately after there is enough data to play**. This means that the user receives the message as it is being created. The Electron Client uses the Message Transfer Service library to track the beginning of the message, the reception of message data, and the end of the message. These states are tracked in the Redux Store and subseqently represented in the UI. 
 
-One very notable issue with the message service is that it does not send compelted messages. Instead, it streams messages so that once a user begins to send the message, the stream is received and the client begings to play what it has. So there are 3 important events that the client needs to trac: message beginning, receiving data, message ending. 
+**The message streams come with information about the sender, the channel, and date**. This data is decoded by the Message Transfer Service and given to the Electron Client via the library mentioned.
 
-Similary with sending an audio message. A stream is openened up and continues to send. 
+**Messages are automatically stored in the database**. There is a fixed number of allowed messages in the database. Older one's are deleted in favor of newer ones to maintain the number. 
 
-The streams also carries all the required information about the sender, the channel, and date. 
+**When a conversation history is pulled up, the Electron Client loads a fixed number of older messages from the database**. If the user scrolls up (i.e in the past), additional messages are lazy loaded from the database into the Redux Store and thereafter the history panel.
 
-The message service also provides lists of channels and contacts. 
-
-As far as updating message UI, when a dispatcher opens a coversation, limited portion of the messages from the database history are pulled up. Then, new messages are added to the client ui.
-
-There's also existing logging that logged exceptions, failed messages, etc. 
+**Logging is set up to monitor the app**. 
 
 ### The Main Challenge 
 
