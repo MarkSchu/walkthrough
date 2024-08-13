@@ -14,7 +14,7 @@ Zello makes a mobile app that lets the phone act like a walkie-talking. You can 
 
 ### Users 
 
-The app is used by teams and people that are "out in the field" and need to communicate in real time like truck drivers, taxi services, event staff, warehousing teams, utility companies, etc.  
+The app is used by teams and people that are "out in the field" and need to communicate in real time like truck drivers, taxi services, event staff, warehousing teams, utility companies, etc. 
 
 ### Dispatch Hub
 
@@ -109,6 +109,8 @@ The tech stack of the Dispatch App is as follows:
   5. Sass for styling
   6. Webpack for build
   7. A SQL database management system for local persistence 
+  8. Unit testing with Jest 
+  9. Logging with `electron-log`
 
 ### High Level Archicture
 
@@ -132,7 +134,7 @@ There are a few things worth pointing out in the interaction between these three
 
 **The Electron Client uses multiple redux stores to that are separated by theme to track client state**. For example, there are stores for the conversation history, the lists of contacts and channels, and user information. This stands in contrast to one large redux store. Different components connect to the store they need to.  
 
-**Logging is set up to monitor the app**. 
+**Logging is set up at points of data transfer**, so database queries, messages creation and reception, primary renders like conversations and lists. We did not use logging to evaluate user behavior. We used it to monitor critical connections in the app.  
 
 ### The Main Challenge 
 
@@ -153,8 +155,6 @@ Some differences unique to Audio Messages:
   3. Audio messages are created at the put of a button
 
 ### Instances of the Challenge
-
-added logic
 
 1. The creation of an input for creating and sending text messages at the bottom of the conversation history panel. 
 
@@ -182,13 +182,32 @@ added logic
 
 13. The modification of style classes to make different components look the same. For example, the message components in the history panel. 
 
-### Monitoring, Metrics, and Insights
+14. Modify logging around messages so that logging distinguished text and audio messages where it made sense to do so. 
 
+### Design Process
 
+The design process looked like this: 
 
-the design
-approach
-technical details
-success metrics 
-user insights
-how you discussed tradeoffs with your product and design partners.
+  1. Product and design would discuss the feature and create wireframes
+  2. There would be initial discussions with development 
+  3. Full mocks were created
+  4. Another round of discussions with develoeprs to make sure everyone was on board 
+  6. Requirements were specified
+  7. The feature would be divided into tasks
+  8. Implementation 
+
+When questions came up, they were directly asked. There was constant contact.
+
+### Success Metrics and User Insights
+
+The two main questions for the feature were: 
+
+  1. Will text messages be used? 
+  2. Will text messages be enjyoable to use? 
+
+From a data perspective: 
+
+  1. Measure use via logging
+  2. Measure use via database 
+
+The primary method, however, was Zello's relationship to their clients. They were in constant contact with them getting feedback about what they needed and how things worked. 
