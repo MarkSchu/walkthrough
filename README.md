@@ -118,7 +118,7 @@ At the most general level, the architecture consists of:
   2. The Database Layer
   3. Message Transfer Service
 
-There are a few things worth pointing out in interaction between these three:
+There are a few things worth pointing out in the interaction between these three:
   
 **The Message Transfer Service handles the entire process of sending and receiving messages**. It's accessed via a library imported into the Electron Client that exposes methods for sending and receiving messages. 
 
@@ -130,23 +130,22 @@ There are a few things worth pointing out in interaction between these three:
 
 **When a conversation history is pulled up, the Electron Client loads a fixed number of older messages from the database**. If the user scrolls up (i.e in the past), additional messages are lazy loaded from the database into the Redux Store and thereafter the history panel.
 
+**The Electron Client uses multiple redux stores to that are separated by theme to track client state**. For example, there are stores for the conversation history, the lists of contacts and channels, and user information. This stands in contrast to one large redux store. Different components connect to the store they need to.  
+
 **Logging is set up to monitor the app**. 
 
 ### The Main Challenge 
 
-When starting work on the problem of adding text messages, the dispatch app was fully fledged out for sending audio messages. It was already working with messages. There's existing logic and existing UI. Now, were adding a new kind of message. So how are you going to fit in a new kind of message to an existing archteciture that's meant to deal with a different kind of message? 
+The **Main Challenge**: Am I going to try to generalize or augment existing components or create new components to handle the new case, and risk code that isn't DRY. 
 
-Am I going to try to generalize or augment existing logic and components or create new log and new components to handle the new case, and risk code that isn't DRY. 
+In other words, we already have message logic. How much do we have to change or add to start thinking in terms of types of messages? 
 
-So a lot of the questions for this project were of the form: am I going to make this handle two kinds of messages or am I going to create a different handler. 
-
-And there were two categories of this question: UX and Logic. Here are a few areas where this question came up. 
+### Instances of the Challenge
 
 
 augment component
 create unique component
 
-### Instances of the Challenge
 
 1. Representing Messages. On the database level, audio messages and text messages were distinguished and stored as different tables. Retreiving all messages included retreiving from both tables. On the client, they were also given different types. However, the audio message and text message had an overlap type, Message, and could be referred to as such. So you could have a list of objects of the `Message` type but then refer to as `TextMessage` or `AudioMessage`. On the reception of the message, the service told us which was which. 
 
