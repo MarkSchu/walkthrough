@@ -100,20 +100,27 @@ To be a bit more specific, we need
 
 ### Existing Tech Stack 
 
-The basic dependencies and tech stack is as follows:
+The tech stack of the Dispatch App is as follows:
 
-  1. Built with Electron js. 
+  1. Built with Electron JS
   2. Written in TypeScript 
   3. React for front-end components
   4. Redux for client state management 
   5. Sass for styling
-  6. Webpack to build
-  7. SQL database management system
+  6. Webpack for build
+  7. A SQL database management system for local persistence 
 
-### Existing Archicture
-The basic archicture: 
+### High Level Archicture
 
-At the most general level, the architecture consists of the Electron Client, the Database Layer, and a Messaging API. The messaging api is a service that already exists that handles the entire process of encoding and transferring messages. It this context, it is already built to handle Text Messages. The Electron Client subscribes to this service to receive messages. When the client receives the messages, its automatically stores them in the database to save the history. The number of messages in the database is monitored, only allowing a specific number of saved messages. When new messages come in and the number is exceeded, the oldest set of messages is deleted. 
+At the most general level, the architecture consists of:
+
+  1. The Electron Client
+  2. The Database Layer
+  3. Message Transfer Service
+  
+The Message Transfer Service handles the entire process of sending and receiving messages. It's accessed via a library imported into the Electron Client that exposes methods for sending and receiving messages. 
+
+When the client receives the messages, its automatically stores them in the database to save the history. The number of messages in the database is monitored, only allowing a specific number of saved messages. When new messages come in and the number is exceeded, the oldest set of messages is deleted. 
 
 One very notable issue with the message service is that it does not send compelted messages. Instead, it streams messages so that once a user begins to send the message, the stream is received and the client begings to play what it has. So there are 3 important events that the client needs to trac: message beginning, receiving data, message ending. 
 
