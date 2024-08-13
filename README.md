@@ -25,15 +25,11 @@ For example, you can imagine a dispatcher working for the power company coordina
 ## Why Solve the Problem? 
 There are contexts in which it is more helpful to send text messages. Here are a few: 
 
-1. You can visually search through text messages. 
-
-2. You can read off important information instead of having to relisen to an audio message.
-
-3. You can copy and paste to your phone.
-
-4. You can share information in noisy areas.
-
-5. You can share information in contexts where loud noises are not permitted. 
+  1. You can visually search through text messages. 
+  2. You can read off important information instead of having to relisen to an audio message.
+  3. You can copy and paste to your phone.
+  4. You can share information in noisy areas.
+  5. You can share information in contexts where loud noises are not permitted. 
 
 ## How the Dispatch Hub Currently Works 
 
@@ -57,8 +53,8 @@ There are **3 ways** in which messages are exchanged in the dispatch app:
 
 **Channels** include multiple users. Anyone in the channel can send and receive messages. There are two types channel: 
 
-1. Dispatch
-2. Non-Dispatch. 
+  1. Dispatch
+  2. Non-Dispatch. 
 
 Non-Dispatch channels act as explained. Dispatch channels are unique. In addition to exchanging messages, non-dispatchers in the channel can also initiate **Calls**. 
 
@@ -74,9 +70,9 @@ All of this is tracked on the following Dashboard:
 
 There are three main components to point out here. 
 
-1. The Tabs
-2. Calls/Contacts/Channels List
-3. The Converation History Panel where messages are shown
+  1. The Tabs
+  2. Calls/Contacts/Channels List
+  3. The Converation History Panel where messages are shown
 
 When you click either Calls, Contacts, or Channels, you'll see a different display for each liss:
 
@@ -84,9 +80,9 @@ When you click either Calls, Contacts, or Channels, you'll see a different displ
 
 There are also a number of additional features that help with messaging. 
 
-1. A microphone button that allows you to record and send a message.
-2. A red notification badge that indicates how many unread messages are available.
-3. A red dot next to a message that indicates an unread message.
+  1. A microphone button that allows you to record and send a message.
+  2. A red notification badge that indicates how many unread messages are available.
+  3. A red dot next to a message that indicates an unread message.
 
 ## Requirements 
 
@@ -95,26 +91,27 @@ add the ability to exchange text messages in a way that feels natural with respe
 
 For a bit more detail, we need: 
 
-1. can recieve text messages
-2. persists text messages
-4. shows new text message notifications to dispatch user
-5. shows unread text message notifications to dispatch user 
-5. can send text messages to other clients 
+  1. can recieve text messages
+  2. persists text messages
+  3. shows new text message notifications to dispatch user
+  4. shows unread text message notifications to dispatch user 
+  5. can send text messages to other clients 
 
 ## Solution, Challenges and Design Decisions
 
-### Existing Tech Stack and Architecture 
+### Existing Tech Stack 
 
 The basic dependencies and tech stack is as follows:
 
-1. Built with Electron js. 
-2. Written in TypeScript 
-3. React for front-end components
-4. Redux for client state management 
-5. Sass for styling
-6. Webpack to build
-7. SQL database management system
+  1. Built with Electron js. 
+  2. Written in TypeScript 
+  3. React for front-end components
+  4. Redux for client state management 
+  5. Sass for styling
+  6. Webpack to build
+  7. SQL database management system
 
+### Existing Archicture
 The basic archicture: 
 
 At the most general level, the architecture consists of the Electron Client, the Database Layer, and a Messaging API. The messaging api is a service that already exists that handles the entire process of encoding and transferring messages. It this context, it is already built to handle Text Messages. The Electron Client subscribes to this service to receive messages. When the client receives the messages, its automatically stores them in the database to save the history. The number of messages in the database is monitored, only allowing a specific number of saved messages. When new messages come in and the number is exceeded, the oldest set of messages is deleted. 
