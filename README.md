@@ -6,23 +6,23 @@ The **Dispatch Hub** is an an app used for exchanging **audio messages**.
 
 This docuemnt describes the project of **text message** exchange to the Dispatch Hub.
 
-## Mobile App
+### Mobile App
 
 Zello makes a mobile app that lets the phone act like a walkie-talking. You can send a voice message to another user by pushing the big button and talking.
 
 <img src="/assets/1-phone-display.png" alt="drawing" width="200"/>
 
-## Users 
+### Users 
 
 The app is used by teams and people that are "out in the field" and need to communicate in real time like truck drivers, taxi services, event staff, warehousing teams, utility companies, etc.  
 
-## Dispatch Hub
+### Dispatch Hub
 
 The **Dispatch Hub** is a desktop app used by people back at the office, the dispatchers, to coordinate and help the mobiles users out in the field. 
 
 For example, you can imagine a dispatcher working for the power company coordinatng trucks after a power outage. They're there to answer questions, direct trucks to certain areas, and revieve updates when work is done.
 
-## Why Solve the Problem? 
+### Why Solve the Problem? 
 There are contexts in which it is more helpful to send text messages. Here are a few: 
 
   1. You can visually search through text messages. 
@@ -31,7 +31,7 @@ There are contexts in which it is more helpful to send text messages. Here are a
   4. You can share information in noisy areas.
   5. You can share information in contexts where loud noises are not permitted. 
 
-## How the Dispatch Hub Currently Works 
+### How the Dispatch Hub Currently Works 
 
 On the mobile app, messages are displayed like this:
 
@@ -86,7 +86,7 @@ There are also a number of additional features that help with messaging.
   2. A red notification badge that indicates how many unread messages are available.
   3. A red dot next to a message that indicates an unread message.
 
-## Requirements 
+### Requirements 
 
 The **main requirement**:add the ability to exchange text messages in a way that feels natural with respect to the existing messaging architecture. 
 
