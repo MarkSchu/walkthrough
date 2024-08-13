@@ -2,77 +2,69 @@
 
 ## The Problem 
 
-The **Dispatch Hub** is an an app used for exchanging **audio messages**. Add the ability to send **Text Messages** to the Dispatch App. Specifically, add the ability to send and receive Text Messages with mobile users.
+The **Dispatch Hub** is an an app used for exchanging **audio messages**. 
+
+This docuemnt describes the project of **text message** exchange to the Dispatch Hub.
 
 ## Mobile App
 
-Where are we starting with? Zello makes a app for iPhone and Android that turns your phone into a walkie-talkie; it lets you send push-to-talk messages between phones. 
+Zello makes a mobile app that lets the phone act like a walkie-talking. You can send a voice message to another user by pushing the big button and talking.
 
 <img src="/assets/1-phone-display.png" alt="drawing" width="200"/>
 
-For instance, if you push that big circle button and talk, I'll receive your message in real time on my device. 
-
 ## Users 
 
-The app is primarily purchased by businesses and used by teams that are "out in the field" and need to communicate in real time. For example, a power company with multiple trucks driving around fixing downed wires would be an example. They could use the app to ask questions, give updates, and coordinate whoe goes where. 
-
-There are loads of other possible use cases: truck drivers, taxi service, event staff, warehousing & distribution, utility companies, etc. 
+The app is used by teams and people that are "out in the field" and need to communicate in real time like truck drivers, taxi services, event staff, warehousing teams, utility companies, etc.  
 
 ## Dispatch Hub
 
-The **Dispatch Hub** is a desktop app used by people back at the office - the dispatchers - to coordinate and help out the mobiles users out in the field. 
+The **Dispatch Hub** is a desktop app used by people back at the office, the dispatchers, to coordinate and help the mobiles users out in the field. 
 
 For example, you can imagine a dispatcher working for the power company coordinatng trucks after a power outage. They're there to answer questions, direct trucks to certain areas, and revieve updates when work is done.
 
-## Why Solve the Problem 
-There are contexts in which it is more helpful to send a text message. Here are a few: 
+## Why Solve the Problem? 
+There are contexts in which it is more helpful to send text messages. Here are a few: 
 
-1. You can visually search text. For example, you can scroll through a list of text messages looking for a word or phrase. You can't do that with audio messages. 
+1. You can visually search through text messages. 
 
-2. It makes accessing important information faster and easier. Instead of re-listening to an audio message to get an address, you can read it. 
+2. You can read off important information instead of having to relisen to an audio message.
 
-3. It allows you to copy & paste information.
+3. You can copy and paste to your phone.
 
-4. It allows you to share information when the area you're in is too noisy to listen to audio messagse. 
+4. You can share information in noisy areas.
 
-5. It allows you to share information in places that do not permit loud audio: library, speaking event, etc. 
+5. You can share information in contexts where loud noises are not permitted. 
 
 ## How the Dispatch Hub Currently Works 
 
-The language of "exchanging messagess" is fairly general. It's now time to get more specific about how message exhange works on the app to give a more specific idea of what will need to change. 
-
-From the perspective of the mobile user, messages are displayed with on a user interface that's similar to the messaging apps we're used to: 
+On the mobile app, messages are displayed like this:
 
 <img src="/assets/2-phone-msgs.png" alt="drawing" width="200"/>
 
-From the perspective of the dispatch app, messages are displayed similarly. This is a sub-component of the dispatch app that shows messages: 
+On the dispatch app, messages are displayedlike this: 
 
 <img src="/assets/3-dispatch-msgs.png" alt="drawing" width="200" style="border: 1px solid #ccc"/>
 
-In either case, when you click the triangle play button, the audio message is replayed: 
+When you click the triangle button, the audio message is played.
 
-There are three contexts in which messages are exchanged in the dispatch app:
+There are **3 ways** in which messages are exchanged in the dispatch app:
 
   1. Exchanging messages with Contacts. 
   2. Exchanging messages in Channels. 
   3. Exchanging messages in Calls
 
-**Contacts** are individual users, like drivers using the mobile app and other dispatchers on their own instance of the dispath hub. These act like direct messages in a Slack Channel. It's just a conversation.
+**Contacts** are individual users, like drivers using the mobile app. 
 
-**Channels** are a bit like Slack Channels in which multiple users can particpate. Anyone who is in the channel can send and receive messages. Creating channels and assing users to the channel is configured on a different app. You cannot do that from Dispatch Hub. 
-
-There are two types channel: 
+**Channels** include multiple users. Anyone in the channel can send and receive messages. There are two types channel: 
 
 1. Dispatch
 2. Non-Dispatch. 
 
-Non-dispatch channels act as explained; if you're in the channel you can send and receive messages. Dispatch channels are unique. No only can you send and receive messages, non-dispatchers who are part of the channel can also initiate **Calls**. 
+Non-Dispatch channels act as explained. Dispatch channels are unique. In addition to exchanging messages, non-dispatchers in the channel can also initiate **Calls**. 
 
-**Calls** are private conversations between a dispatcher and a user. A call has the following lifecycle: created -> pending -> accepted -> ended. 
+**Calls** are private conversations between a dispatcher and a user. When a call is created, it's added to a queue. A dispatcher can accept the call, have a private conversation with the user, and then end the call. In short, a call has the following lifecycle: created => pending => accepted => ended. 
 
-When a call is created, it goes into a queue. A dispatcher can accept a call that is in the queue. Then, the dispatcher can have a private conversation with the user who initied the call. Then the dispatcher can end the call. 
-
-The use case for a Call is when a field workd has a particular question or issue that they need focused attention on until resolved. They "call in" to the dispatcher for help.  
+Calls are used by mobile users to raise particular issues or requests that they need resolved.
 
 ### The Dispatch Hub UI 
 
@@ -82,33 +74,34 @@ All of this is tracked on the following Dashboard:
 
 There are three main components to point out here. 
 
-First, the tabs on the top left permit the user to select what kind of message exchange they're interested in. The first three options correspond to the three contexts of message exchange mentioned above: Calls, Contacts, and Channels. The option "Recent" shows a list of your most recent message exchanges. 
+1. The Tabs
+2. Calls/Contacts/Channels List
+3. The Converation History Panel where messages are shown
 
-Second, beneath the tab component on the left is a list that shows your messaging options. It displays the existing Calls, Contacts, and Channels that you are available to message in when the corresponding tab is selected. Each has a slightly different UI: 
+When you click either Calls, Contacts, or Channels, you'll see a different display for each liss:
 
 ![phone-display!](/assets/5-tab-selections.png)
 
-When you click on any of the options that present in the list, it will bring up your converation history with that user. That is shown in the right component, which also displays basic information about the channel, contact, or call at the top. 
+There are also a number of additional features that help with messaging. 
 
-There are a number of features worth pointing out
+1. A microphone button that allows you to record and send a message.
+2. A red notification badge that indicates how many unread messages are available.
+3. A red dot next to a message that indicates an unread message.
 
-1. Components for writing and sending and message 
-2. Notifications showing that there's a new message
-3. Notifications showing that a message is unread
-4. A way to send messages from 
+## Requirements 
 
-#### General Requirements 
+The main requirement: 
+add the ability to exchange text messages in a way that feels natural with respect to the existing messaging architecture. 
 
-1. can recieves text message
-2. persists text message in local storage
-3. shows actual text message in dispatch conversation history 
+For a bit more detail, we need: 
+
+1. can recieve text messages
+2. persists text messages
 4. shows new text message notifications to dispatch user
 5. shows unread text message notifications to dispatch user 
 5. can send text messages to other clients 
 
 ## Solution, Challenges and Design Decisions
-
-The how. 
 
 ### Existing Tech Stack and Architecture 
 
